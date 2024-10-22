@@ -19,6 +19,7 @@ public class Main {
         
         menu();
         do {
+            boolean controllo = false;
             System.out.println("\nInserisci un numero");
             String numero = scanner.nextLine();
             out.writeBytes(numero + "\n");
@@ -32,15 +33,36 @@ public class Main {
                     break;
                 case "=":
                     System.out.println("Numero indovinato");
+                    String turni = input.nextLine();
+                    System.out.println("Tentativi: " + turni);
                     fine = true;
+                    do{
+                        controllo = false;
+                        System.out.println("Vuoi conitnuare?");
+                        System.out.println("1 = sì - 0 = no");
+                        String scelta = scanner.nextLine();
+                        out.writeBytes(scelta + "\n");
+                        String continua = input.nextLine();
+                        switch (continua) {
+                            case "1":
+                                fine = false;
+                                System.out.println("Si ricomincia!!!");
+                                break;
+                            case "0":
+                                System.out.println("Partita conclusa");
+                                break;
+                            default:
+                                System.out.println("!!!Scelta errata!!!");
+                                controllo = true;
+                                break;
+                        }
+                    }while(controllo);
                     break;
                 default:
                     System.out.println("!!!Il numero da te inserito, risulta erroneo!!!");
                     break;
             }
         } while (!fine);
-        String turni = input.nextLine();
-        System.out.println(turni);
         
         out.close();
         input.close();
