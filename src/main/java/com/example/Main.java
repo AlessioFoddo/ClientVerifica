@@ -1,7 +1,51 @@
 package com.example;
 
+import java.io.DataOutputStream;
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
+import java.util.Scanner;
+
 public class Main {
-    public static void main(String[] args) {
-        System.out.println("Hello world!");
+    public static void main(String[] args) throws UnknownHostException, IOException {
+        System.out.println("Client partito");
+        Socket s = new Socket("localhost", 3000);
+        System.out.println("Il client si è collegato");
+
+        Scanner scanner = new Scanner(System.in);
+        Scanner input = new Scanner(s.getInputStream());
+        DataOutputStream out = new DataOutputStream(s.getOutputStream());
+        boolean fine = false;
+        
+        menu();
+        do {
+            System.out.println("\nInserisci un numero");
+            String numero = scanner.nextLine();
+            out.writeBytes(numero + "\n");
+            String risposta = input.nextLine();
+            if(risposta.equals("<")){
+                System.out.println("Numero troppo piccolo");
+            }else if(risposta.equals(">")){
+                System.out.println("Numero troppo grande");
+            }else if(risposta.equals("=")){
+                System.out.println("Numero indovinato");
+                fine = true;
+            }else{
+                System.out.println("!!!Il numero da te inserito, risulta erroneo!!!");
+            }
+        } while (!fine);
+        String turni = input.nextLine();
+        System.out.println(turni);
+        
+        out.close();
+        input.close();
+        scanner.close();
+        s.close();
+    }
+
+    public static void menu(){
+        System.out.println("\n- - - BENVENUTO - - -");
+        System.out.println("Nel server è stato generato un numero, tovcca a te scoprirlo.");
+        System.out.println("!!!Ricorda, il numero deve essere minore di 100!!!");
     }
 }
