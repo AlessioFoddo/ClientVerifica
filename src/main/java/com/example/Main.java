@@ -23,15 +23,20 @@ public class Main {
             String numero = scanner.nextLine();
             out.writeBytes(numero + "\n");
             String risposta = input.nextLine();
-            if(risposta.equals("<")){
-                System.out.println("Numero troppo piccolo");
-            }else if(risposta.equals(">")){
-                System.out.println("Numero troppo grande");
-            }else if(risposta.equals("=")){
-                System.out.println("Numero indovinato");
-                fine = true;
-            }else{
-                System.out.println("!!!Il numero da te inserito, risulta erroneo!!!");
+            switch (risposta) {
+                case "<":
+                    System.out.println("Numero troppo piccolo");
+                    break;
+                case ">":
+                    System.out.println("Numero troppo grande");
+                    break;
+                case "=":
+                    System.out.println("Numero indovinato");
+                    fine = true;
+                    break;
+                default:
+                    System.out.println("!!!Il numero da te inserito, risulta erroneo!!!");
+                    break;
             }
         } while (!fine);
         String turni = input.nextLine();
